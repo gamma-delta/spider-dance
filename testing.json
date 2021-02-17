@@ -1,0 +1,79 @@
+{
+    "$schema": "./node.schema.json",
+    "name": "S",
+    "daughters": [
+        {
+            "name": "NP",
+            "daughters": [
+                {
+                    "name": "N",
+                    "daughters": [
+                        {
+                            "name": "I",
+                            "properties": [
+                                "1p",
+                                "+sg"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "AUX",
+            "daughters": [
+                {
+                    "name": "T",
+                    "daughters": [
+                        {
+                            "name": "PRES"
+                        }
+                    ]
+                },
+                {
+                    "name": "M",
+                    "properties": [
+                        "+A"
+                    ],
+                    "daughters": [
+                        {
+                            "name": "must"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "VP",
+            "daughters": [
+                {
+                    "name": "V",
+                    "daughters": [
+                        {
+                            "name": "like"
+                        }
+                    ]
+                },
+                {
+                    "name": "NP",
+                    "daughters": [
+                        {
+                            "name": "N",
+                            "daughters": [
+                                {
+                                    "name": "she",
+                                    "properties": [
+                                        "3p",
+                                        "-sg",
+                                        "NOM"
+                                    ],
+                                    "realized": "her"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
