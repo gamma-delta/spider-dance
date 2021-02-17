@@ -35,6 +35,7 @@
                     "properties": [
                         "+A"
                     ],
+                    "realized": "example",
                     "daughters": [
                         {
                             "name": "must"
@@ -64,7 +65,7 @@
                                     "name": "she",
                                     "properties": [
                                         "3p",
-                                        "-sg",
+                                        "+sg",
                                         "NOM"
                                     ],
                                     "realized": "her"

@@ -66,8 +66,14 @@ impl Node {
         mut left_leaves: usize,
         depth: f32,
     ) -> PartialDraw {
-        let bottom =
-            depth + options.y_space + options.property_space * self.properties.len() as f32;
+        let bottom = depth
+            + options.y_space
+            + options.property_space * self.properties.len() as f32
+            + if self.realized.is_some() {
+                options.property_space
+            } else {
+                0.0
+            };
 
         let (children, xpos) = if self.daughters.is_empty() {
             // OK, I'm a terminal node!
@@ -98,9 +104,7 @@ impl Node {
 {}"#,
                     xpos,
                     d.xpos,
-                    depth
-                        + options.property_space * self.properties.len() as f32
-                        + options.node_font_size / 2.0,
+                    bottom - options.y_space + options.property_space / 2.0,
                     d.ypos - options.node_font_size,
                     &options.branch_color,
                     d.content.as_str()
@@ -129,8 +133,8 @@ impl Node {
             let left_inner = xpos - offset;
             let right_outer = xpos + offset + options.node_font_size / 2.0;
             let right_inner = xpos + offset;
-            let top = depth + options.property_space / 4.0;
-            let bottom = depth + options.property_space * (self.properties.len() as f32 + 0.5);
+            let top = depth + options.property_space / 3.5;
+            let bottom = depth + options.property_space * (self.properties.len() as f32 + 0.3);
 
             content.push_str(&format!(
                 r#"<polyline class="bracket" fill="none" stroke="{}" points="{},{} {},{} {},{} {},{}" />
@@ -163,6 +167,17 @@ impl Node {
                 ));
             }
         }
+        if let Some(realized) = &self.realized {
+            content.push_str(&format!(
+                r#"<text class="realized" font-size="{}px" x="{}" y="{}">"{}"</text>
+"#,
+                options.prop_font_size,
+                xpos,
+                depth + options.property_space * (self.properties.len() + 1) as f32,
+                &realized
+            ))
+        }
+
         content.push_str(&format!("{}\n</g>", inner_content.replace('\n', "\n    ")));
 
         let (max_x, max_y) = iter::once((xpos, bottom))
